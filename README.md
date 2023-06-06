@@ -13,7 +13,7 @@ python app.py
  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
  ```
 
-### Excel Data 
+### Spreadsheet  
 ![image](https://github.com/Bhanunamikaze/JiraExcelParse/assets/17119658/04b0c0c3-c67f-40a4-b41e-4f4c7f2f29ab)
 
 ### WebPage 
