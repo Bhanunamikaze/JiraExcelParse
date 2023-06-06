@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create JIRA Ticket</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+         
+        textarea#description {
+            height: 350px; 
+            resize: vertical;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Create JIRA Ticket</h1>
+    
+    <form action="/create-ticket" method="post">
+        <label for="dropdown">Vulnerability Name:</label>
+        <select id="dropdown" name="dropdown">
+            {% for option in options %}
+                <option value="{{ option.title }}">{{ option.title }}</option>
+            {% endfor %}
+        </select> <br>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title">
+
+        <label for="table">Affected Domains:</label>
+        <textarea id="table" name="table"></textarea><br><br>
+
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description">
+
+        <label for="label">Label:</label>
+        <input type="text" id="label" name="label">
+
+        <label for="remediation">Remediation:</label>
+        <input type="text" id="remediation" name="remediation">
+
+        <label for="reference">Reference:</label>
+        <input type="text" id="reference" name="reference">
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        var data = {{ options|tojson }};
+        var dropdown = document.getElementById('dropdown');
+        dropdown.addEventListener('change', function() {
+            var selectedOption = this.value;
+            var selectedRow = data.find(function(row) {
+                return row.title === selectedOption;
+            });
+            document.getElementById('title').value = selectedRow.title;
+            document.getElementById('description').value = selectedRow.description;
+            document.getElementById('remediation').value = selectedRow.remediation;
+            document.getElementById('reference').value = selectedRow.reference;
+        });
+    </script>
+</body>
+</html>
